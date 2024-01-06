@@ -20,32 +20,52 @@ namespace ImgUpload.Controllers
         }
 
         [HttpGet("getimage/{id}")]
-        public async Task<IActionResult> GetImageById(string id)
+        public async Task<Image> GetImageById(string id)
         {
-            var image = await _imageService.GetImageById(id);
-            return File(image.ImageData, "image/jpeg");
+            return await _imageService.GetImageById(id);
         }
 
-
-        [HttpGet("getimageinfo/{id}")]
-        public async Task<IActionResult> GetImageInfoById(string id)
+        [HttpGet("getallimage")]
+        public async Task<List<Image>> GetAllImage()
         {
-            var imageInfo = await _imageService.GetImageInfoById(id);
-            return Ok(imageInfo);
+            return await _imageService.GetAllImage();
         }
 
-        [HttpGet("getallimageinfo")]
-        public async Task<IActionResult> GetAllImageInfo()
+        [HttpPost("upload")]
+        public async Task<IActionResult> Upload([FromBody] Image image)
         {
-            var imageList = await _imageService.GetAllImageInfo();
-            return Ok(imageList);
+            try
+            {
+                await _imageService.Upload(image);
+                return CreatedAtAction(nameof(GetImageById), new { id = image.Id }, image);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
 
-        [HttpPost("uploadimage")]
-        public IActionResult UploadImage([FromForm] IFormFile file, [FromForm] string imageName, [FromForm] string imageDes)
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> Update(string id, [FromBody] Image image)
         {
-            _imageService.UploadImage(file.OpenReadStream(), imageName, imageDes);
-            return Ok();
+            try
+            {
+                var existImage = await _imageService.GetImageById(id);
+                if (existImage == null)
+                {
+                    return NotFound();
+                }
+
+                image.Id = existImage.Id;
+                var updatedImage = await _imageService.Update(id, image);
+
+                return Ok(updatedImage);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
     }
 }

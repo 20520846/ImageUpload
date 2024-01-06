@@ -13,5 +13,5 @@ public class Image
     public string? Id { get; set; } 
     public string? ImageName { get; set; } = null;
     public string? ImageDes { get; set; } = null;
-    public byte[] ImageData { get; set; } = null;
+    public string? ImageURL { get; set; } = null;
 }
