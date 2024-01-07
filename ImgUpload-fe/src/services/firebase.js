@@ -1,5 +1,5 @@
 import * as firebase from 'firebase/app';
-import { getStorage } from 'firebase/storage';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import firebaseConfig from '../config/firebase';
 import * as firestoreService from "firebase/firestore";
 
@@ -30,6 +30,6 @@ class FireBase{
     }
 }
 
-const FireBaseInstance = new FireBase();
+const firebaseInstance = new FireBase();
 
-export default FireBaseInstance;
+export default firebaseInstance;

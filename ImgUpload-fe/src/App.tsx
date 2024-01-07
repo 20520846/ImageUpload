@@ -1,5 +1,5 @@
 
-import {ImageList} from './components/ImageList'
+import {ImageList} from './components/Image/ImageList'
 
 function App(): JSX.Element {
 
