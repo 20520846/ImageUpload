@@ -80,6 +80,7 @@ export const ImageCard: () => JSX.Element = (): JSX.Element => {
           <Modal show={openModal}
             onClose={() => setOpenModal(false)}
             size='3xl'>
+              <Modal.Header>Upload Image</Modal.Header>
             <Modal.Body className='grid grid-cols-2 space-x-5'>
               <div className='flex flex-col items-center'>
                 <img
