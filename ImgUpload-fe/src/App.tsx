@@ -1,11 +1,13 @@
 
-import {ImageList} from './components/Image/ImageList'
+import Image from './components/Image';
+import SideBar from './components/SideBar';
 
 function App(): JSX.Element {
 
   return (
-    <div className=''>
-      <ImageList />
+    <div className='flex'>
+      <SideBar />
+      <Image />
     </div>
   );
 }

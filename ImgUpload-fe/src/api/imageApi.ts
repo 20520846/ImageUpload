@@ -16,7 +16,6 @@ const imageApi = {
         try {
             const url = "/image/getallimage";
             const res = await axiosClient.get(url);
-            console.log(res.data);
             return res.data; 
         } catch (error) {
             console.log(error);
