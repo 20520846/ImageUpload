@@ -93,6 +93,8 @@ export const ImageCard: () => JSX.Element = (): JSX.Element => {
                   accept="image/*"              
                   onChange={handleImageChange}
                 />
+
+                
               </div>
               <div className='flex flex-col items-end'>
                 <TextInput
