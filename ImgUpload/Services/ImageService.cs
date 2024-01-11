@@ -32,5 +32,9 @@ namespace ImgUpload.Services
             await _imageCollection.ReplaceOneAsync(a => a.Id == id, image);
             return image;
         }
+
+        public async Task<Image> Delete (string id){
+            return await _imageCollection.FindOneAndDeleteAsync(a => a.Id == id);
+        }
     }
 }

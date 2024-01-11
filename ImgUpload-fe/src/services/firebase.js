@@ -9,8 +9,7 @@ class FireBase{
         this.storage = getStorage();
     }
 
-    storeImage = async (folder, imageFile) => {
-        const id = Date.now();
+    storeImage = async (imageFile, id) => {
         const imageRef = ref(this.storage, `images/${id}`);
         const uploadTask = uploadBytesResumable(imageRef, imageFile);
         return new Promise((resolve, reject) => {
@@ -27,6 +26,18 @@ class FireBase{
                 }
             );
         });
+    }
+
+    deleteImage = async (id) => {
+        const imageRef = ref(this.storage, `images/${id}`);
+        return new Promise((resolve, reject) => {
+            imageRef.delete().then(() => {
+                resolve();
+            }).catch((error) => {
+                console.log(error);
+            });
+        });
+    
     }
 }
 

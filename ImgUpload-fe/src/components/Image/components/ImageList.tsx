@@ -21,17 +21,24 @@ export const ImageList: () => JSX.Element = (): JSX.Element => {
                 <ImageCard />
             </div>
             <div className="flex">
-
-                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 ml-10">
-                   {images.map((image) => (
-                        <div key={image.id}>
-                            <img className="h-[300px] w-[300px] rounded-lg border border-gray-800"
-                                src={image.imageURL} 
-                                alt="" />
+                    {images.length === 0 && (
+                        <div className="flex items-center justify-center w-full h-full">
+                            <p className="text-3xl font-bold text-center">No images found</p>
                         </div>
                     
-                   ))}
-                </div>
+                    )}
+                    {images.length > 0 && (
+                        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 ml-10">
+                        {images.map((image) => (
+                                <div key={image.id}>
+                                    <img className="h-[300px] w-[300px] rounded-lg border border-gray-800"
+                                        src={image.imageURL} 
+                                        alt="" />
+                                </div>
+                            
+                        ))}
+                        </div>
+                    )}
 
             </div>
         </div>

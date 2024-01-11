@@ -14,4 +14,8 @@ public class Image
     public string? ImageName { get; set; } = null;
     public string? ImageDes { get; set; } = null;
     public string? ImageURL { get; set; } = null;
+
+    public string? ImageStoreName { get; set; } = null;
+
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 }

@@ -43,6 +43,17 @@ const imageApi = {
             console.log(error);
         }
     },
+
+    deleteImage: async (id: string) => {
+        try {
+            const url = "/image/delete";
+            const res = await axiosClient.delete(url, {params: {id}});
+            console.log(res.data);
+            return res.data; 
+        } catch (error) {
+            console.log(error);
+        }
+    },
 };
 
 export default imageApi;

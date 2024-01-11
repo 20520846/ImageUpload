@@ -14,7 +14,6 @@ export const ImageCard: () => JSX.Element = (): JSX.Element => {
     const [values, setValues] = useState({
       ImageName: '',
       ImageDes: '',
-      ImageUrl: '',
       image: File,
     });
     const ImageInputRef = useRef<HTMLInputElement>(null);
@@ -32,7 +31,7 @@ export const ImageCard: () => JSX.Element = (): JSX.Element => {
     }
     const resetForm = () => {
       setValues({ 
-        ImageName: '', ImageDes: '', ImageUrl: '', image: File 
+        ImageName: '', ImageDes: '', image: File 
       });
       document.getElementById('imageInput')?.setAttribute('value', '');
       setSelectedImage(image_placeholder);
@@ -56,14 +55,16 @@ export const ImageCard: () => JSX.Element = (): JSX.Element => {
         window.alert('Please fill in all fields');
       }
       else {
+        const id = Date.now().toString();
         const imageURL = values.image
-          ? await firebaseInstance.storeImage('image',values.image)
+          ? await firebaseInstance.storeImage(values.image, id)
           : null;
         console.log("Da chon tep:", imageURL);
         const image = {
           ImageName: values.ImageName,
           ImageDes: values.ImageDes,
           ImageUrl: imageURL,
+          ImageStoreName : id,
         }; 
         await imageApi.uploadImage(image);
         resetForm();

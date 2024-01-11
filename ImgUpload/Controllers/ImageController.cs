@@ -67,5 +67,26 @@ namespace ImgUpload.Controllers
                 return BadRequest(new { error = ex.Message });
             }
         }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            try
+            {
+                var existImage = await _imageService.GetImageById(id);
+                if (existImage == null)
+                {
+                    return NotFound();
+                }
+
+                var deletedImage = await _imageService.Delete(id);
+
+                return Ok(deletedImage);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
     }
 }
