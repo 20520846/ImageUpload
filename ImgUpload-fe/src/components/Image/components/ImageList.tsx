@@ -1,10 +1,14 @@
 import { ImageCard } from "./ImageCard";
 import { useEffect, useState } from "react";
 import imageApi from "../../../api/imageApi";
+import  ImageModal from "./ImageModal";
+import { useNavigate } from "react-router-dom";
 
 export const ImageList: () => JSX.Element = (): JSX.Element => {
     const [images, setImages] = useState([]);
     const [openModal, setOpenModal] = useState(false);
+    const [selectedImage, setSelectedImage] = useState({} as any);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -13,6 +17,11 @@ export const ImageList: () => JSX.Element = (): JSX.Element => {
         };
         fetchImages();
     }, [images]);
+
+    const handleOpenImageModal = (image) => {
+        setOpenModal(true);
+        setSelectedImage(image);
+    };
 
     return(
         <div className = 'flex flex-col justify-center items-center mx-28 border border-t-gray-300 border-l-0 border-r-0 border-b-0'>
@@ -24,8 +33,7 @@ export const ImageList: () => JSX.Element = (): JSX.Element => {
                     {images.length === 0 && (
                         <div className="flex items-center justify-center w-full h-full">
                             <p className="text-3xl font-bold text-center">No images found</p>
-                        </div>
-                    
+                        </div>                   
                     )}
                     {images.length > 0 && (
                         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 ml-10">
@@ -33,9 +41,12 @@ export const ImageList: () => JSX.Element = (): JSX.Element => {
                                 <div key={image.id}>
                                     <img className="h-[300px] w-[300px] rounded-lg border border-gray-800"
                                         src={image.imageURL} 
-                                        alt="" />
-                                </div>
-                            
+                                        alt="" 
+                                        onClick={(e) => handleOpenImageModal(image)}/>
+                                    {openModal && (                                      
+                                            <ImageModal openModal={openModal} setOpenModal={setOpenModal} image={selectedImage}/>                                        
+                                    )}
+                                </div>                          
                         ))}
                         </div>
                     )}

@@ -1,14 +1,18 @@
-
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Image from './components/Image';
 import SideBar from './components/SideBar';
 
 function App(): JSX.Element {
 
   return (
-    <div className='flex'>
-      <SideBar />
-      <Image />
-    </div>
+    <Router>
+      <div className="flex">
+        <SideBar />
+        <Routes>
+          <Route path="/" element={<Image />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
