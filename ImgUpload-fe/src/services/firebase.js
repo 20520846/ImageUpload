@@ -2,12 +2,25 @@ import * as firebase from 'firebase/app';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import firebaseConfig from '../config/firebase';
 import * as firestoreService from "firebase/firestore";
+import * as authService from "firebase/auth";
 
 class FireBase{
     constructor(){
         firebase.initializeApp(firebaseConfig);
         this.storage = getStorage();
+        this.auth = authService.getAuth();
     }
+
+    createAccount = async (email, password) => {
+        const userCredential = await authService.createUserWithEmailAndPassword(
+          this.auth,
+          email,
+          password
+        );
+        const user = userCredential.user;
+        console.log("user", user);
+        return user;
+    };
 
     storeImage = async (imageFile, id) => {
         const imageRef = ref(this.storage, `images/${id}`);

@@ -1,10 +1,29 @@
 import { HiUser, HiKey } from "react-icons/hi";
 import { TextInput, Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
-
+import { useState } from "react";
+import firebaseInstance from "../../services/firebase";
 
 const Register = () => {
     const navigate = useNavigate();
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+        else {
+            try {
+                const res = await firebaseInstance.createAccount(email, password);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
 
     return (
         <div className="bg-gradient-to-r from-purple-200 to-pink-200 flex justify-center items-center h-screen w-full"> 
@@ -12,11 +31,14 @@ const Register = () => {
                 <span className="text-3xl text-purple-500 font-bold">Register</span>
                 <div className="mt-5 p-5 flex flex-col justify-center items-center space-y-6">
                     <TextInput className="w-3/4 text-pink-500"
-                        placeholder="Username"
+                        type="email"
+                        placeholder="Email"
                         icon={HiUser}
                         color="pink"
                         sizing="lg"
                         required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     <TextInput className="w-3/4 text-pink-500"
                         placeholder="Password"
@@ -25,6 +47,8 @@ const Register = () => {
                         color="pink"
                         sizing="lg"
                         required
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                     <TextInput className="w-3/4 text-pink-500"
                         placeholder="Confirm password"
@@ -33,10 +57,13 @@ const Register = () => {
                         color="pink"
                         sizing="lg"
                         required
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                     <Button className="w-3/4" 
                         gradientDuoTone="purpleToPink"
-                        size="lg">
+                        size="lg"
+                        onClick={handleRegister}>
                         Register
                     </Button>
                     <span className="font-bold">Already have an account? &nbsp;

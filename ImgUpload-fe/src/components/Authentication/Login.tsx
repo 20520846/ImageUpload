@@ -15,6 +15,7 @@ const Login = () => {
                     <div className="mt-5 p-5 flex flex-col justify-center items-center space-y-6">
                         <TextInput className="w-3/4 text-pink-500"
                             placeholder="Username"
+                            type="text"
                             icon={HiUser}
                             color="pink"
                             sizing="lg"
