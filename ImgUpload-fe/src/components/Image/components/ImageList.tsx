@@ -1,10 +1,12 @@
 import { ImageCard } from "./ImageCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import imageApi from "../../../api/imageApi";
 import  ImageModal from "./ImageModal";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../context/authContext";
 
 export const ImageList: () => JSX.Element = (): JSX.Element => {
+    const {currentUser} = useContext(AuthContext);
     const [images, setImages] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState({} as any);

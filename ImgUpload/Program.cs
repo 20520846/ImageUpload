@@ -14,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<ImageService>();
+builder.Services.AddSingleton<UserService>();
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {

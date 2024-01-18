@@ -32,7 +32,7 @@ namespace ImgUpload.Controllers
             return await _userService.GetAllUser();
         }
 
-        [HttpPost("createuser")]
+        [HttpPost("create")]
         public async Task<IActionResult> CreateUser([FromBody] User user)
         {
             try
@@ -47,7 +47,7 @@ namespace ImgUpload.Controllers
             }
         }
 
-        [HttpPut("updateuser/{id}")]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateUser(string id, [FromBody] User user)
         {
             try
@@ -68,7 +68,7 @@ namespace ImgUpload.Controllers
             }
         }
 
-        [HttpDelete("deleteuser/{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             try

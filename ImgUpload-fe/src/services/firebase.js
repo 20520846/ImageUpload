@@ -22,6 +22,25 @@ class FireBase{
         return user;
     };
 
+    login = async (email, password) => {
+        const userCredential = await authService.signInWithEmailAndPassword(
+          this.auth,
+          email,
+          password
+        );
+        const user = userCredential.user;
+        console.log("user", user);
+        return user;
+    };
+
+    logout = async () => {
+        await authService.signOut(this.auth);
+    };
+
+    onAuthStateChanged = (callback) => {
+        authService.onAuthStateChanged(this.auth, callback);
+    }
+
     storeImage = async (imageFile, id) => {
         const imageRef = ref(this.storage, `images/${id}`);
         const uploadTask = uploadBytesResumable(imageRef, imageFile);

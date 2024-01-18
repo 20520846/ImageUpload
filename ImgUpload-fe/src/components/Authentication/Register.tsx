@@ -3,6 +3,7 @@ import { TextInput, Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import firebaseInstance from "../../services/firebase";
+import userApi from "../../api/userApi";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -19,6 +20,16 @@ const Register = () => {
         else {
             try {
                 const res = await firebaseInstance.createAccount(email, password);
+                console.log(res);
+                const username = email.split('@')[0];
+                const user = {
+                    username: username,
+                    email: email,
+                };
+                const response = await userApi.createUser(user);
+                console.log(response);
+                window.alert("Register successfully");
+                navigate('/');
             } catch (error) {
                 console.log(error);
             }
